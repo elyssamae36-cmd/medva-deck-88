@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Rache HVA - 100% Complete Britannica Review Deck</title>
+    <style>
+        :root {
+            --primary: #2b6cb0;
+            --primary-light: #ebf8ff;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --success: #48bb78;
+            --error: #f56565;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 22px;
+            text-align: center;
+            margin: 0 0 5px 0;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+        .category-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+        .tab-btn {
+            background: #edf2f7;
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover, .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .flashcard-scene {
+            width: 100%;
+            height: 290px;
+            perspective: 800px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.4s;
+            transform-style: preserve-3d;
+            border-radius: 10px;
+        }
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            text-align: center;
+        }
+        .card-front {
+            background: #ffffff;
+        }
+        .card-front .tag {
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #e2e8f0;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+        .card-front h2 {
+            font-size: 24px;
+            color: var(--primary);
+            margin: 0 0 10px 0;
+        }
+        .card-front p {
+            font-size: 14px;
+            color: #4a5568;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .card-front .hint {
+            font-size: 11px;
+            color: #cbd5e0;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        .card-back {
+            background: var(--primary-light);
+            color: #2b6cb0;
+            transform: rotateY(180deg);
+            border-color: #bee3f8;
+        }
+        .card-back h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+            color: #4a5568;
+        }
+        .card-back p {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .btn {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-correct { background-color: var(--success); color: white; }
+        .btn-wrong { background-color: var(--error); color: white; }
+        .footer-stats {
+            font-size: 13px;
+            color: #4a5568;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="deck-wrapper">
+    <h1>HVA Diagnostic Classification Deck</h1>
+    <div class="subtitle">Complete Review Deck (88 Terms Mapped from Source Website)</div>
+
+    <div class="category-selector">
+        <button class="tab-btn active" onclick="switchCategory('ALL', this)">All (88)</button>
+        <button class="tab-btn" onclick="switchCategory('CHEMICAL', this)">Chemical/Cellular (28)</button>
+        <button class="tab-btn" onclick="switchCategory('IMAGING', this)">Imaging (23)</button>
+        <button class="tab-btn" onclick="switchCategory('GENETIC', this)">Genetics (3)</button>
+        <button class="tab-btn" onclick="switchCategory('MEASURE', this)">Measurement (9)</button>
+        <button class="tab-btn" onclick="switchCategory('EXAM', this)">Physical Exam (25)</button>
+    </div>
+
+    <div id="deck-progress" style="font-size: 12px; color:#718096; text-align:right; margin-bottom:5px;">Card 1 of 88</div>
+
+    <div class="flashcard-scene" onclick="flipCard()">
+        <div class="card" id="flashcard">
+            <div class="card-face card-front">
+                <div class="tag" id="card-tag">Loading...</div>
+                <h2 id="term-text">Loading...</h2>
+                <p id="desc-text">Loading items...</p>
+                <div class="hint">Tap card to verify medical classification</div>
+            </div>
+            <div class="card-face card-back">
+                <h3>Hello Rache Chart Category:</h3>
+                <p id="category-text">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls" id="action-controls">
+        <button class="btn btn-wrong" onclick="logAnswer(false)">Mark Incorrect ✗</button>
+        <button class="btn btn-correct" onclick="logAnswer(true)">Mark Correct ✓</button>
+    </div>
+
+    <div class="footer-stats">
+        <div>Mastered: <strong id="score-count">0</strong></div>
+        <div>Deck Remaining: <strong id="remaining-count">88</strong></div>
+    </div>
+</div>
+
+<script>
+    const masterDataset = [
+        // === CELLULAR AND CHEMICAL ANALYSIS (28) ===
+        { term: "Amniocentesis", desc: "Sampling amniotic fluid using a needle to screen for developmental anomalies or mutations.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Blood Analysis", desc: "Laboratory assessment of a blood sample to determine biochemical, cellular, or hematologic status.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Blood Count", desc: "Quantifying numbers of red blood cells, white blood cells, and platelets within a specimen.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Blood Typing", desc: "Classification of blood based on the presence or absence of inherited antigenic substances on RBCs.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Bone Marrow Aspiration", desc: "Removal of liquid bone marrow bone tissue to evaluate cellular lineages and hematologic malignancies.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Cerebrospinal Fluid Analysis", desc: "Chemical, cellular, and microbiological workup of fluid retrieved via lumbar puncture.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Gastric Fluid Analysis", desc: "Evaluation of stomach contents to measure acidity, pH, and secretory functionality.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Liver Function Test", desc: "Biochemical profiles measuring enzymes, bilirubin, and proteins to track hepatocyte integrity.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Malabsorption Test", desc: "Fecal or blood assessments checking systemic digestion and uptake of fats or essential nutrients.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Pap Smear", desc: "Microscopic cytological scraping of the uterine cervix to identify premalignant or cancerous cells.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Kidney Function Test", desc: "Evaluation of urea nitrogen and creatinine clearance to measure renal filtering efficiency.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Schilling Test", desc: "Nuclear medical test evaluating gastrointestinal absorption of radioactive radiolabeled vitamin B12.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+        { term: "Semen Analysis", desc: "Evaluation of sperm count, structural morphology, and motility to verify reproductive fertility status.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },
+{ term: "Sputum Analysis", desc: "Laboratory evaluation of mucus coughed up from lower airways to find infection source pathogens.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Stool Analysis", desc: "Biochemical and microscopic study of feces to isolate occult blood, parasites, or pathogenic bacteria.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Toxicology Test", desc: "Screening of biological fluids to identify patterns of drug, poison, or toxic element exposures.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Urinalysis", desc: "Physical, chemical, and microscopic check of urine components for metabolic or renal deviations.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Biopsy", desc: "Excising cell or tissue specimens for targeted microscopic histopathology diagnosis.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Immunological Test", desc: "Assays detecting highly specific antibody-antigen complexes to identify immune system disorders.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Polymerase Chain Reaction", desc: "Molecular biology process expanding target DNA segments exponentially for diagnostic tracking.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Enzyme-Linked Immunosorbent Assay", desc: "Plate-based immunoassay designed to detect and quantify peptides, proteins, or antibodies.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Western Blot", desc: "Analytical technique used to separate and identify specific proteins from a complex mixture.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Flow Cytometry", desc: "Laser-based biophysics technology for cell counting, sorting, and biomarker identification.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Arterial Blood Gas", desc: "Measures oxygen and carbon dioxide tension alongside pH to evaluate pulmonary gas exchange.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Basic Metabolic Panel", desc: "Standard clinical assessment of electrolytes, fluid balance, glucose, and baseline kidney function.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Comprehensive Metabolic Panel", desc: "Expanded biochemical panel including proteins and liver status values alongside fluid metrics.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Lipid Panel", desc: "Measures cholesterol fractions and triglycerides to assess cardiovascular risk metrics.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },{ term: "Thyroid Panel", desc: "Measures blood hormones like TSH, Free T3, and Free T4 to check metabolic control.", cat: "Cellular and Chemical Analysis", type: "CHEMICAL" },// === DIAGNOSTIC IMAGING (23) ==={ term: "Angiography", desc: "Radiographic visualization of vascular structural pathways using injectable intravascular contrast agents.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Barium Swallow", desc: "Fluoroscopic imaging track of upper digestive tracts following tracking contrast ingestion.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Bronchography", desc: "Historical or contrast-enhanced radiographic rendering of bronchial tree architecture.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Cholecystography", desc: "X-ray or contrast investigation pinpointing gallbladder anatomy and patency paths.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Computed Tomography", desc: "Cross-sectional body mapping constructed using computerized multi-angle X-ray arrays.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Echocardiography", desc: "Ultrasonic imaging mapping structural dynamics and real-time movement tracking of heart walls.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Fluoroscopy", desc: "Continuous live X-ray recording tracking immediate physical movements inside organ structures.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Magnetic Resonance Imaging", desc: "Highly detailed structural rendering powered by strong magnetic fields and radio waves.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Mammography", desc: "Low-dose specialized X-ray compression scanning looking for structural breast changes.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Myelography", desc: "Contrast-enhanced spinal cord radiograph evaluating subarachnoid cord spaces.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Nuclear Medicine Scan", desc: "Using small amounts of radioactive tracers to track organ and metabolic functions.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Positron Emission Tomography", desc: "Advanced tracer scan locating metabolic tissue behavior patterns, often used in oncology.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Radiography (X-ray)", desc: "Standard electromagnetic radiation shadow-mapping showing bone and tissue contrasts.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Ultrasound", desc: "Non-invasive diagnostic sound wave technology visualizing deep structural margins safely.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Venography", desc: "Contrast-enhanced radiograph tracking venous structural integrity and obstructive paths.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Angiocardiography", desc: "Targeted contrast imaging tracking internal path structures of heart chambers and large vessels.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Arthrography", desc: "Direct intra-joint contrast injection imaging showing structural issues within joint capsules.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Hysterosalpingography", desc: "Fluoroscopic tracking mapping uterine paths and fallopian tube patency functions.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Pyelography", desc: "Contrast tracking showing anatomical path configurations of the renal pelvis, ureters, and bladder.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Scintigraphy", desc: "Two-dimensional distribution capture of internal internal diagnostic gamma radiation tracers.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Single-Photon Emission CT", desc: "Nuclear 3D scanning using rotating gamma cameras to isolate physiological perfusion pathways.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Bone Density Scan (DEXA)", desc: "Dual energy X-ray test tracking structural bone density values and bone mineral density changes.", cat: "Diagnostic Imaging", type: "IMAGING" },{ term: "Duplex Ultrasound", desc: "Combined structural sound imaging and Doppler workflow tracking intravascular red blood cell speed.", cat: "Diagnostic Imaging", type: "IMAGING" },// === GENETIC TESTING (3) ==={ term: "Karyotyping", desc: "Full systemic chromosome mapping looking for macro deletions, inversions, or numerical defects.", cat: "Genetic Testing", type: "GENETIC" },{ term: "Fluorescence In Situ Hybridization", desc: "Cytogenetic track painting targeted DNA positions to catch micro-structural updates.", cat: "Genetic Testing", type: "GENETIC" },{ term: "Next-Generation Sequencing", desc: "High-throughput DNA reading tracking massive gene panel structural configurations quickly.", cat: "Genetic Testing", type: "GENETIC" },// === MEASUREMENT OF BODY FUNCTIONS (9) ==={ term: "Electrocardiography", desc: "Recording cardiac bio-electric signal pathways over time using surface skin electrodes.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Electroencephalography", desc: "Tracking post-synaptic cerebral cortex electrical activities across standard scalp nodes.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Electromyography", desc: "Direct micro-needle recording measuring peripheral muscular response loops during nerve impulses.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Spirometry", desc: "Pneumotachograph device checking direct volume capacities and air velocity profiles during exhalation.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Cardiac Catheterization", desc: "Interventional intracardiac access via guidewires tracking exact pressure changes inside chambers.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Holter Monitor", desc: "Continuous ambulatory ECG recorder capturing daily electrical variations outside clinic spaces.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Pulmonary Function Test", desc: "Comprehensive breathing evaluations tracking gas diffusion limits and lung storage volumes.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Polysomnography", desc: "Multichannel sleep tracking capturing EEG, airflow, and respiratory efforts overnight.", cat: "Measurement of Body Functions", type: "MEASURE" },{ term: "Evoked Potential Test", desc: "Measuring time delays in central nervous paths following controlled sensory stimulation loops.", cat: "Measurement of Body Functions", type: "MEASURE" },// === PHYSICAL EXAMINATION AND INSPECTION (25) ==={ term: "Auscultation", desc: "Acoustic assessment of visceral sound pitches using a clinical stethoscope tool.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Autopsy", desc: "Postmortem tissue and macroscopic physical reviews to explain ultimate causes of clinical death.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Bronchoscopy", desc: "Endoscopic tube review tracking visual paths inside respiratory bronchial divisions directly.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Colonoscopy", desc: "Direct viewing tracking structural changes across full large bowel lengths using flexible camera scopes.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Cystoscopy", desc: "Endoscopic tracking mapping lower urinary pathways, bladder walls, and urethral tissue junctions.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Endoscopy", desc: "Generic baseline term for luminal optical tracking using advanced light and flexible video lenses.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Gastroscopy", desc: "Targeted internal optical loop viewing mucosal linings across stomach and duodenal limits.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Laparoscopy", desc: "Trans-abdominal portal scoping enabling direct diagnostic visualization of pelvic structural plains.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Ophthalmoscopy", desc: "Optical projection viewing retinal vessels and optic nerve discs inside eyes.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Otoscopy", desc: "Visual mechanical investigation of tympanic membranes and external ear pathways.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Palpation", desc: "Manual physical pressure checking for deep tissue masses, guarding tones, or localized tenderness.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Percussion", desc: "Diagnostic tapping methods eliciting tissue sound resonance tones to locate underlying density edges.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Proctoscopy", desc: "Direct rigid viewing tracking anal canal and localized distal rectal tissue conditions.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Sigmoidoscopy", desc: "Targeted visual scoping covering the terminal left-side descending colon fields.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Mediastinoscopy", desc: "Surgical scoping track exploring center chest areas behind breastbones for nodal checks.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Laryngoscopy", desc: "Direct or mirror viewing tracking structural vocal cords and deep pharyngeal margins.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Esophagoscopy", desc: "Targeted endoscopic tract review identifying varices or tears throughout esophageal scopes.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Colposcopy", desc: "Magnified stereoscopic viewing verifying cervical or vaginal epithelium structural layouts.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Arthroscopy", desc: "Endoscopic camera guidance tracking cartilage erosion or ligamentous tears inside active joints.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Thoracoscopy", desc: "Direct scope exploration scanning inner chest pleural spaces without massive chest cracking.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Anoscopy", desc: "Short speculum viewing targeting local anorectal junction fields exclusively.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Enteroscopy", desc: "Advanced long-path scoping targeting the hard-to-reach middle zones of the small bowel.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Nasopharyngoscopy", desc: "Flexible fiberoptic track checking nasal corridors down into lower throat inlets.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Vaginoscopy", desc: "Optical evaluation of vaginal walls, often used for pediatric or specialized speculum needs.", cat: "Physical Examination and Inspection", type: "EXAM" },{ term: "Digital Rectal Exam", desc: "Manual finger examination tracking prostate texture and local rectal wall integrity changes.", cat: "Physical Examination and Inspection", type: "EXAM" }];let currentSubset = [...masterDataset];let currentIndex = 0;let masteredCount = 0;function renderCard() {if (currentSubset.length === 0) {document.getElementById('deck-progress').innerText = "Deck Complete!";document.getElementById('card-tag').innerText = "DONE";document.getElementById('term-text').innerText = "🎉 All Done!";document.getElementById('desc-text').innerText = "You have reviewed all cards in this category focus.";document.getElementById('category-text').innerText = "N/A";document.getElementById('action-controls').style.visibility = "hidden";document.getElementById('remaining-count').innerText = "0";return;}document.getElementById('action-controls').style.visibility = "visible";const item = currentSubset[currentIndex];// Reset card flip classdocument.getElementById('flashcard').classList.remove('is-flipped');// Push Text DatasetTimeout(() => {document.getElementById('card-tag').innerText = item.type;document.getElementById('term-text').innerText = item.term;document.getElementById('desc-text').innerText = item.desc;document.getElementById('category-text').innerText = item.cat;document.getElementById('deck-progress').innerText = Card ${currentIndex + 1} of ${currentSubset.length};document.getElementById('remaining-count').innerText = currentSubset.length;}, 150);}function flipCard() {document.getElementById('flashcard').classList.toggle('is-flipped');}function logAnswer(isCorrect) {if (isCorrect) {masteredCount++;document.getElementById('score-count').innerText = masteredCount;currentSubset.splice(currentIndex, 1);} else {currentIndex++;}if (currentIndex >= currentSubset.length) {currentIndex = 0;}renderCard();}function switchCategory(typeCode, element) {// Toggle Active Tab Styledocument.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));element.classList.add('active');// Apply Dataset Array Filtersif (typeCode === 'ALL') {currentSubset = [...masterDataset];} else {currentSubset = masterDataset.filter(item => item.type === typeCode);}currentIndex = 0;renderCard();}// App Initialization Runwindow.onload = function() {renderCard();};
